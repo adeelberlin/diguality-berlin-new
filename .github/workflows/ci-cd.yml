@@ -1,0 +1,83 @@
+name: Diguality Berlin New
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the code
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.16.0'
+
+      # Step 3: Install Yarn
+      - name: Install Yarn
+        run: |
+          curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+          echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+          sudo apt-get update && sudo apt-get install yarn
+
+      # Step 4: Install dependencies
+      - name: Install dependencies
+        run: yarn install
+
+      # Step 5: Run tests
+      - name: Run tests
+        run: yarn lint
+
+      # Step 6: Build the Next.js app using .env.prod
+      - name: Build the app
+        run: |
+          cp .env.prod .env
+          yarn run build
+
+      # Step 7: Deploy to VM using password authentication
+      - name: Deploy to VM
+        env:
+          VM_IP: ${{ secrets.VM_IP }}
+          VM_USER: ${{ secrets.VM_USER }}
+          VM_PASSWORD: ${{ secrets.VM_PASSWORD }}
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y sshpass curl gnupg
+
+          sshpass -p "$VM_PASSWORD" ssh -o StrictHostKeyChecking=no $VM_USER@$VM_IP << 'EOF'
+            set -e  # Exit immediately if a command exits with a non-zero status
+
+            DIR="/home/deploy/diguality-berlin-new"
+            REPO_URL="https://github.com/adeelberlin/diguality-berlin-new"
+
+            if [ ! -d "$DIR" ]; then
+                echo "Directory does not exist. Cloning repository..."
+                mkdir -p "$DIR"
+                cd "$DIR"
+                git init
+                git remote add origin "$REPO_URL"
+                git pull origin main
+            else
+                echo "Directory exists. Pulling latest changes..."
+                cd "$DIR"
+                git reset --hard origin/main
+                git pull origin main
+            fi
+
+            npm install --legacy-peer-deps
+            cp .env.prod .env
+            npm run build
+            pm2 delete diguality-berlin-new
+            pm2 start "npm run start" --name diguality-berlin-new --time
+          EOF
+

@@ -77,6 +77,6 @@ jobs:
             npm install --legacy-peer-deps
             cp .env.prod .env
             npm run build
-            pm2 start "PORT=4000 npm run start npm run start" --name diguality-berlin-new --time
+            pm2 start "PORT=4000 npm run start" --name diguality-berlin-new --time
           EOF
 

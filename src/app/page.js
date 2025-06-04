@@ -8,8 +8,8 @@ const Home = () => {
     {
       icon: Code,
       title: "Software Development",
-      description: "Our team of experienced software developers help clients create custom software solutions that meet their specific needs. Such as custom MAMs, cloud based media & broadcasting systems as well as OTT.",
-      features: ["Custom MAMs", "Cloud Media Systems", "OTT Platforms", "Broadcasting Solutions"]
+      description: "Our team of experienced software developers help clients create custom software solutions that meet their specific needs. Such as bespoke MAM solutions, cloud based media & broadcasting systems as well as OTT.",
+      features: ["Bespoke MAM Solutions", "Cloud Media Systems", "OTT Platforms", "Broadcasting Solutions"]
     },
     {
       icon: Settings,
@@ -26,8 +26,8 @@ const Home = () => {
     {
       icon: CheckCircle,
       title: "QA Testing",
-      description: "Our team of experienced QA professionals employs rigorous testing methodologies to identify and rectify potential issues, ensuring your software solutions meet the highest standards of quality.",
-      features: ["Rigorous Testing", "Quality Assurance", "Bug Detection", "Performance Testing"]
+      description: "Our team of experienced QA professionals employs functional testing methodologies to identify and rectify potential issues, ensuring your software solutions meet the highest standards of quality.",
+      features: ["Functional Testing", "Quality Assurance", "Bug Detection", "Performance Testing"]
     },
     {
       icon: BarChart3,

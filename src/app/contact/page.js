@@ -176,11 +176,10 @@ const Contact = () => {
                                     <CardBody className="p-6">
                                         <div className="flex items-center space-x-4">
                                             <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-400 rounded-lg flex items-center justify-center">
-                                                <Phone className="w-6 h-6 text-white" />
+
                                             </div>
                                             <div>
                                                 <h3 className="font-semibold text-white text-lg">Phone</h3>
-                                                <p className="text-gray-300">+49 30 XXX XXXX</p>
                                             </div>
                                         </div>
                                     </CardBody>

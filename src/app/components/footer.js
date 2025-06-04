@@ -49,8 +49,6 @@ const Footer = () => {
                                 <span>digualitycloud@proton.me</span>
                             </li>
                             <li className="flex items-center space-x-2 text-gray-300">
-                                <Phone className="w-4 h-4" />
-                                <span>+49 30 XXX XXXX</span>
                             </li>
                         </ul>
                     </div>
@@ -59,7 +57,7 @@ const Footer = () => {
                 <div className="border-t border-gray-700 mt-12 pt-8">
                     <div className="flex flex-col md:flex-row justify-between items-center">
                         <p className="text-gray-400 mb-4 md:mb-0">
-                            © 2024 Diguality UG. All rights reserved.
+                            © {new Date().getFullYear()} Diguality UG. All rights reserved.
                         </p>
                         <div className="flex space-x-6">
                             <Link href="/" className="text-gray-400 hover:text-cyan-400 transition-colors">Home</Link>
